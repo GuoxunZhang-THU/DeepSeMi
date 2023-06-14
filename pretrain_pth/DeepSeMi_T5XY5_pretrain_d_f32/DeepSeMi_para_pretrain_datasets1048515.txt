@@ -1,0 +1,308 @@
+n_epochs : 20
+GPU : 0,1,4
+output_dir : ./results
+batch_size : 3
+img_w : 192
+img_h : 192
+img_s : 32
+in_c : 31
+in_c_s : 31
+in_c_t : 16
+out_c : 1
+f_num : 32
+lr : 0.0001
+b1 : 0.5
+b2 : 0.999
+norm_factor : 1
+use_pretrain : 1
+pretrain_path : pth_XYS
+pretrain_model : DeepSeMi_T1XY1_pretrain_d_f32
+pretrain_index : deepsemi_49.pth
+blindspot : True
+datasets_folder : pretrain_datasets
+datasets_path : ..//datasets
+pth_path : pth_XYS
+train_datasets_size : 1000
+select_img_num : 5000
+net_type : T5XY5
+output_path : ./results/DeepSeMi_T5XY5_pretrain_d_202306031626
+pth_save_path : pth_XYS//DeepSeMi_T5XY5_pretrain_d_202306031626
+DeepSeMi_net : DataParallel(
+  (module): BlindspotNetwork(
+    (Network_T): BlindspotNetwork_sub(
+      (input_block_1): Sequential(
+        (0): ShiftConv3d(
+          16, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(2, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(2, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+      )
+      (encode_block_1): Sequential(
+        (0): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (1): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(2, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (2): ReLU(inplace=True)
+        (3): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (4): ReLU(inplace=True)
+      )
+      (encode_block_2): Sequential(
+        (0): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (1): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (2): ReLU(inplace=True)
+        (3): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (4): ReLU(inplace=True)
+      )
+      (encode_block_3): Sequential(
+        (0): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (1): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (2): ReLU(inplace=True)
+        (3): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (4): ReLU(inplace=True)
+      )
+      (encode_block_6): Sequential(
+        (0): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+      )
+      (decode_block_6): Sequential(
+        (0): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (decode_block_3): Sequential(
+        (0): ShiftConv3d(
+          64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+        (4): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (decode_block_2): Sequential(
+        (0): ShiftConv3d(
+          64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+        (4): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (decode_block_1): Sequential(
+        (0): ShiftConv3d(
+          64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(2, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+      )
+      (dropout): Dropout(p=0, inplace=False)
+    )
+    (Network_XY): BlindspotNetwork_sub(
+      (input_block_1): Sequential(
+        (0): ShiftConv3d(
+          31, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(2, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(2, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+      )
+      (encode_block_1): Sequential(
+        (0): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (1): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(2, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (2): ReLU(inplace=True)
+        (3): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (4): ReLU(inplace=True)
+      )
+      (encode_block_2): Sequential(
+        (0): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (1): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (2): ReLU(inplace=True)
+        (3): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (4): ReLU(inplace=True)
+      )
+      (encode_block_3): Sequential(
+        (0): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (1): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (2): ReLU(inplace=True)
+        (3): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (4): ReLU(inplace=True)
+      )
+      (encode_block_6): Sequential(
+        (0): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+      )
+      (decode_block_6): Sequential(
+        (0): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (decode_block_3): Sequential(
+        (0): ShiftConv3d(
+          64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+        (4): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (decode_block_2): Sequential(
+        (0): ShiftConv3d(
+          64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+        (4): Upsample(scale_factor=2.0, mode=nearest)
+      )
+      (decode_block_1): Sequential(
+        (0): ShiftConv3d(
+          64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(1, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (1): ReLU(inplace=True)
+        (2): ShiftConv3d(
+          32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1)
+          (pad3d): ConstantPad3d(padding=(2, 0, 0, 0, 0, 0), value=0)
+          (crop3d): Crop3d()
+        )
+        (3): ReLU(inplace=True)
+      )
+      (dropout): Dropout(p=0, inplace=False)
+    )
+    (output_block): Sequential(
+      (0): Conv3d(192, 32, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      (1): ReLU(inplace=True)
+      (2): Conv3d(32, 32, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      (3): ReLU(inplace=True)
+      (4): Conv3d(32, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+    )
+    (output_block_T): Sequential(
+      (0): Conv3d(32, 32, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      (1): ReLU(inplace=True)
+      (2): Conv3d(32, 32, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      (3): ReLU(inplace=True)
+      (4): Conv3d(32, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+    )
+    (output_block_XY): Sequential(
+      (0): Conv3d(32, 32, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      (1): ReLU(inplace=True)
+      (2): Conv3d(32, 32, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      (3): ReLU(inplace=True)
+      (4): Conv3d(32, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+    )
+  )
+)
+optimizer : Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.5, 0.999)
+    eps: 1e-08
+    lr: 0.0001
+    weight_decay: 0
+)
